@@ -16,8 +16,8 @@ export default function DocsHome() {
           </div>
           <h1>Build with clarity.</h1>
           <p className="lead">
-            Learn how to generate, understand, operate, and extend a Stackiln
-            product. Start with the quick start, then use the guides as a reference.
+            Build visually with Studio or work directly from the CLI, then learn
+            how to understand, operate, and extend the product you own.
           </p>
         </header>
 
@@ -28,10 +28,10 @@ export default function DocsHome() {
             <small>Generate and run your first product.</small>
             <i aria-hidden="true">→</i>
           </Link>
-          <Link className="docs-entry" href="/docs/concepts">
-            <span>Understand the model</span>
-            <strong>How Stackiln works</strong>
-            <small>Composition, ownership, and safety.</small>
+          <Link className="docs-entry" href="/docs/studio">
+            <span>Build visually</span>
+            <strong>Studio builder</strong>
+            <small>Compose, customise, preview, and export.</small>
             <i aria-hidden="true">→</i>
           </Link>
         </div>
@@ -75,8 +75,8 @@ export default function DocsHome() {
         <div className="docs-note">
           <strong>Current status</strong>
           <p>
-            Stackiln is in alpha. Marketing and optional accounts are verified;
-            reserved preset names are not promises of completed functionality.
+            Stackiln is in alpha. Studio, marketing, and optional accounts are
+            verified; reserved preset names are not promises of completed functionality.
           </p>
         </div>
       </article>

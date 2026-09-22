@@ -24,7 +24,7 @@ export const docs: DocPage[] = [
   {
     slug: "quick-start",
     title: "Quick start",
-    description: "Generate and run a marketing product from source.",
+    description: "Build and run a marketing product with Studio or the CLI.",
     category: "Start",
     sections: [
       {
@@ -40,7 +40,14 @@ export const docs: DocPage[] = [
         ],
       },
       {
-        heading: "Create a product",
+        heading: "Build visually with Studio",
+        paragraphs: [
+          "Start the local Studio from the Stackiln checkout, then open http://127.0.0.1:4173. Choose a page recipe, search the 60-block catalogue, arrange the page, and edit its content and theme before exporting.",
+        ],
+        code: "git clone https://github.com/Stackiln/stackiln.git\ncd stackiln\npnpm install --frozen-lockfile\npnpm stackiln studio ../my-product",
+      },
+      {
+        heading: "Or create from the CLI",
         paragraphs: [
           "Clone Stackiln, install its pinned dependencies, and generate into a directory beside the framework checkout. The marketing preset is the implemented starting point.",
         ],
@@ -65,6 +72,65 @@ export const docs: DocPage[] = [
         code: "cd ../stackiln\npnpm stackiln inspect ../my-product\npnpm stackiln doctor ../my-product",
         paragraphs: [
           "Inspect reports the resolved preset, modules, framework version, deployment target, and changed managed files. Doctor exits non-zero when a managed file differs from its recorded checksum.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "studio",
+    title: "Studio builder",
+    description: "Compose, preview, and export a site from a local visual workspace.",
+    category: "Start",
+    sections: [
+      {
+        heading: "Start Studio",
+        paragraphs: [
+          "Run Studio from the Stackiln repository and give it a new destination directory. Studio binds to your local machine at http://127.0.0.1:4173; pass --port when that port is unavailable.",
+          "The destination must not already contain a product. Studio keeps the draft separate until you choose Export site.",
+        ],
+        code: "pnpm stackiln studio ../my-product\n# Choose another port when needed\npnpm stackiln studio ../my-product --port 5000",
+      },
+      {
+        heading: "Compose the page",
+        paragraphs: [
+          "Start from marketing-classic, saas-launch, editorial, or waitlist. Changing the composition replaces the current ordered selection with that recipe's blocks.",
+        ],
+        bullets: [
+          "Search the complete 60-block catalogue by name, category, or description.",
+          "Drag a block from the library onto the canvas.",
+          "Drag sections to reorder them, or use their up and down controls.",
+          "Remove a section from the canvas without adding unused source to the export.",
+        ],
+      },
+      {
+        heading: "Edit design and content",
+        paragraphs: [
+          "The inspector updates the canvas as you work. Site controls set the product name, description, palette, typeface, corner radius, and density. Select a block to edit its eyebrow, heading, description, and item list.",
+          "The preview represents the composition and theme rather than running the finished Next.js application. The exported source is the final authority.",
+        ],
+      },
+      {
+        heading: "Save a local draft",
+        paragraphs: [
+          "Changes autosave after a short pause, and Save draft writes immediately. Drafts live under .stackiln-studio in the framework checkout and are keyed by the destination name. Starting Studio again for the same destination restores that draft.",
+          "Studio listens only on the loopback interface and rejects draft or export requests from non-local browser origins.",
+        ],
+      },
+      {
+        heading: "Export the site",
+        paragraphs: [
+          "Export site validates the configuration, runs the same Stackiln planner as the CLI, writes through a sibling staging directory, and moves the completed product into the destination only after generation succeeds.",
+          "Only selected blocks are materialised. Their content and theme choices become product-owned source; the generated application does not need Studio or Stackiln at runtime.",
+        ],
+        code: "cd ../my-product\ncp .env.example .env.local\npnpm install --frozen-lockfile\ndocker compose up -d --wait db\npnpm db:migrate\npnpm dev",
+      },
+      {
+        heading: "Current scope",
+        bullets: [
+          "Studio currently creates new marketing products; it does not edit an existing exported product.",
+          "A block can appear once in the current composition.",
+          "Module selection and account configuration remain CLI workflows.",
+          "Automatic upgrade and conflict-proposal workflows are not implemented yet.",
         ],
       },
     ],
@@ -232,18 +298,27 @@ export const docs: DocPage[] = [
   {
     slug: "cli",
     title: "CLI reference",
-    description: "Create, inspect, diagnose, and describe Stackiln products.",
+    description: "Build, create, inspect, diagnose, and describe Stackiln products.",
     category: "Reference",
     sections: [
       {
         heading: "create",
-        code: "pnpm stackiln create <directory> \\\n  --preset marketing \\\n  --name \"Product name\" \\\n  [--description \"...\"] \\\n  [--module accounts] \\\n  [--plan] [--json]",
+        code: "pnpm stackiln create <directory> \\\n  --preset marketing \\\n  --name \"Product name\" \\\n  [--description \"...\"] \\\n  [--module accounts] \\\n  [--recipe saas-launch] \\\n  [--block hero.centered] \\\n  [--plan] [--json]",
         bullets: [
           "directory is required and must not already contain a product.",
           "marketing is the default and currently implemented preset.",
           "Repeat --module to select multiple optional modules as they become available.",
+          "--recipe selects a predefined page composition. The default is marketing-classic.",
+          "Repeat --block to replace the recipe with an exact ordered block selection.",
           "--plan resolves and prints the operation without writing files.",
           "--json emits machine-readable output where supported.",
+        ],
+      },
+      {
+        heading: "studio",
+        code: "pnpm stackiln studio <directory> [--port 4173]",
+        paragraphs: [
+          "Starts the local visual builder for a new marketing product. The directory is the eventual export destination. Studio saves a validated local draft while you arrange blocks and edit design and content, then exports through the standard planner and staged creation path.",
         ],
       },
       {
