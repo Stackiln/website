@@ -9,12 +9,52 @@ export default function DocsHome() {
         <DocsNav />
       </aside>
       <article className="docs-content docs-overview">
-        <span className="docs-kicker">Stackiln documentation</span>
-        <h1>Documentation</h1>
-        <p className="lead">
-          Learn how to generate, understand, operate, and extend a Stackiln
-          product. Start with the quick start, then use the guides as a reference.
-        </p>
+        <header className="docs-hero">
+          <div className="docs-hero-labels">
+            <span className="docs-kicker">Stackiln documentation</span>
+            <span className="docs-status">Alpha · actively maintained</span>
+          </div>
+          <h1>Build with clarity.</h1>
+          <p className="lead">
+            Learn how to generate, understand, operate, and extend a Stackiln
+            product. Start with the quick start, then use the guides as a reference.
+          </p>
+        </header>
+
+        <div className="docs-entry-grid">
+          <Link className="docs-entry docs-entry-primary" href="/docs/quick-start">
+            <span>Start here</span>
+            <strong>Quick start</strong>
+            <small>Generate and run your first product.</small>
+            <i aria-hidden="true">→</i>
+          </Link>
+          <Link className="docs-entry" href="/docs/concepts">
+            <span>Understand the model</span>
+            <strong>How Stackiln works</strong>
+            <small>Composition, ownership, and safety.</small>
+            <i aria-hidden="true">→</i>
+          </Link>
+        </div>
+
+        <div className="docs-meta-strip" aria-label="Documentation summary">
+          <div>
+            <strong>{docs.length}</strong>
+            <span>Guides</span>
+          </div>
+          <div>
+            <strong>{docCategories.length}</strong>
+            <span>Sections</span>
+          </div>
+          <div>
+            <strong>MIT</strong>
+            <span>Open source</span>
+          </div>
+        </div>
+
+        <div className="docs-index-heading">
+          <span className="docs-kicker">Browse the manual</span>
+          <p>From first run to production operation.</p>
+        </div>
         <div className="docs-index">
           {docCategories.map((category) => (
             <section key={category}>
