@@ -37,7 +37,7 @@ export default async function DocumentationPage({
         <DocsNav current={doc.slug} />
       </aside>
       <article className="docs-content">
-        <span className="eyebrow">Guide</span>
+        <span className="docs-kicker">{doc.category}</span>
         <h1>{doc.title}</h1>
         <p className="lead">{doc.description}</p>
         {doc.sections.map((section) => (

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { DocsNav } from "@/components/docs-nav";
-import { docs } from "@/lib/docs";
+import { docCategories, docs } from "@/lib/docs";
 
 export default function DocsHome() {
   return (
@@ -9,20 +9,27 @@ export default function DocsHome() {
         <DocsNav />
       </aside>
       <article className="docs-content docs-overview">
-        <span className="eyebrow">Stackiln documentation</span>
-        <h1>Build from a verified foundation.</h1>
+        <span className="docs-kicker">Stackiln documentation</span>
+        <h1>Documentation</h1>
         <p className="lead">
-          Learn how Stackiln plans, composes, generates, and verifies standalone
-          Next.js products without becoming their runtime.
+          Learn how to generate, understand, operate, and extend a Stackiln
+          product. Start with the quick start, then use the guides as a reference.
         </p>
-        <div className="docs-grid">
-          {docs.map((doc, index) => (
-            <Link href={`/docs/${doc.slug}`} key={doc.slug}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <h2>{doc.title}</h2>
-              <p>{doc.description}</p>
-              <strong>Read guide →</strong>
-            </Link>
+        <div className="docs-index">
+          {docCategories.map((category) => (
+            <section key={category}>
+              <h2>{category}</h2>
+              <div>
+                {docs
+                  .filter((doc) => doc.category === category)
+                  .map((doc) => (
+                    <Link href={`/docs/${doc.slug}`} key={doc.slug}>
+                      <strong>{doc.title}</strong>
+                      <span>{doc.description}</span>
+                    </Link>
+                  ))}
+              </div>
+            </section>
           ))}
         </div>
         <div className="docs-note">
