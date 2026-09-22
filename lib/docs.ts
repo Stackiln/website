@@ -79,58 +79,160 @@ export const docs: DocPage[] = [
   {
     slug: "studio",
     title: "Studio builder",
-    description: "Compose, preview, and export a site from a local visual workspace.",
+    description: "A complete first-run guide to composing, exporting, and running a site.",
     category: "Start",
     sections: [
       {
-        heading: "Start Studio",
+        heading: "What you will make",
         paragraphs: [
-          "Run Studio from the Stackiln repository and give it a new destination directory. Studio binds to your local machine at http://127.0.0.1:4173; pass --port when that port is unavailable.",
-          "The destination must not already contain a product. Studio keeps the draft separate until you choose Export site.",
-        ],
-        code: "pnpm stackiln studio ../my-product\n# Choose another port when needed\npnpm stackiln studio ../my-product --port 5000",
-      },
-      {
-        heading: "Compose the page",
-        paragraphs: [
-          "Start from marketing-classic, saas-launch, editorial, or waitlist. Changing the composition replaces the current ordered selection with that recipe's blocks.",
+          "This guide starts Stackiln Studio on your computer, lets you assemble a marketing site in the browser, and exports a complete Next.js repository named my-product. Nothing is uploaded to Stackiln, and the builder is not a hosted service.",
+          "Studio is a generator, not a page editor attached to a live site. You design a new product, export it once, and continue working in the generated source code.",
         ],
         bullets: [
-          "Search the complete 60-block catalogue by name, category, or description.",
-          "Drag a block from the library onto the canvas.",
-          "Drag sections to reorder them, or use their up and down controls.",
-          "Remove a section from the canvas without adding unused source to the export.",
+          "Studio runs at http://127.0.0.1:4173 on your computer.",
+          "Your draft stays inside the Stackiln checkout until export.",
+          "The exported product has no Stackiln runtime dependency.",
+          "Expect about ten minutes for the first run, excluding software downloads.",
         ],
       },
       {
-        heading: "Edit design and content",
+        heading: "Install the prerequisites",
         paragraphs: [
-          "The inspector updates the canvas as you work. Site controls set the product name, description, palette, typeface, corner radius, and density. Select a block to edit its eyebrow, heading, description, and item list.",
-          "The preview represents the composition and theme rather than running the finished Next.js application. The exported source is the final authority.",
+          "Install Node.js 24, Git, and pnpm 9 before continuing. Docker is not needed to open Studio, but it is needed after export to run the generated PostgreSQL database and complete the full verification gate.",
+          "Open PowerShell on Windows or Terminal on macOS/Linux and run these checks. Each command should print a version instead of an error.",
         ],
-      },
-      {
-        heading: "Save a local draft",
-        paragraphs: [
-          "Changes autosave after a short pause, and Save draft writes immediately. Drafts live under .stackiln-studio in the framework checkout and are keyed by the destination name. Starting Studio again for the same destination restores that draft.",
-          "Studio listens only on the loopback interface and rejects draft or export requests from non-local browser origins.",
-        ],
-      },
-      {
-        heading: "Export the site",
-        paragraphs: [
-          "Export site validates the configuration, runs the same Stackiln planner as the CLI, writes through a sibling staging directory, and moves the completed product into the destination only after generation succeeds.",
-          "Only selected blocks are materialised. Their content and theme choices become product-owned source; the generated application does not need Studio or Stackiln at runtime.",
-        ],
-        code: "cd ../my-product\ncp .env.example .env.local\npnpm install --frozen-lockfile\ndocker compose up -d --wait db\npnpm db:migrate\npnpm dev",
-      },
-      {
-        heading: "Current scope",
+        code: "node --version\ngit --version\npnpm --version\ndocker --version\ndocker compose version",
         bullets: [
-          "Studio currently creates new marketing products; it does not edit an existing exported product.",
-          "A block can appear once in the current composition.",
-          "Module selection and account configuration remain CLI workflows.",
-          "Automatic upgrade and conflict-proposal workflows are not implemented yet.",
+          "Node should begin with v24.",
+          "pnpm should begin with 9.",
+          "If PowerShell blocks pnpm.ps1, use pnpm.cmd everywhere this guide says pnpm.",
+          "Start Docker Desktop before the Run the exported site step.",
+        ],
+      },
+      {
+        heading: "Download Stackiln",
+        paragraphs: [
+          "Choose a folder where you keep development projects. The commands below download Stackiln, enter its repository, and install the exact dependency versions recorded by the project.",
+          "Stay inside the stackiln directory for every Studio command in this guide.",
+        ],
+        code: "git clone https://github.com/Stackiln/stackiln.git\ncd stackiln\npnpm install --frozen-lockfile",
+      },
+      {
+        heading: "Start the builder",
+        paragraphs: [
+          "Run the command below from the stackiln directory. The ../my-product argument means export into a new folder named my-product beside the Stackiln checkout. Pick a different name now if you want the generated folder to use a different name.",
+          "The destination must not already exist. Do not point Studio at an existing application or a folder containing files.",
+        ],
+        code: "pnpm stackiln studio ../my-product",
+        bullets: [
+          "Leave this terminal window open while using Studio.",
+          "Wait for the line Stackiln Studio: http://127.0.0.1:4173.",
+          "Open http://127.0.0.1:4173 in your browser; Studio does not open it automatically.",
+          "If port 4173 is busy, stop the command with Ctrl+C and run pnpm stackiln studio ../my-product --port 5000, then open http://127.0.0.1:5000.",
+        ],
+      },
+      {
+        heading: "Understand the workspace",
+        paragraphs: [
+          "Studio has three working areas and a top bar. If the right-hand inspector is missing, make the browser window wider than 1000 pixels or zoom out; it is hidden on narrow screens.",
+        ],
+        bullets: [
+          "Left — Block library: search the 60 available page sections and drag them into the page.",
+          "Centre — Canvas: preview the order, select sections, move them, or remove them.",
+          "Right — Design and content: edit site-wide design choices and the selected section's copy.",
+          "Top — Status and actions: confirm the export destination, watch save state, save immediately, or export.",
+          "Composition — Switch between the marketing-classic, saas-launch, editorial, and waitlist starting recipes.",
+        ],
+      },
+      {
+        heading: "Build your page",
+        paragraphs: [
+          "First choose the closest composition from the dropdown above the canvas. This gives you a sensible ordered page instead of an empty screen. Warning: choosing another composition replaces your current custom block order with that recipe.",
+          "Use the search box to find a block, then drag its card from the left library and drop it anywhere on the centre canvas. Clicking a library card does not add it. Each block can appear only once in the current page.",
+        ],
+        bullets: [
+          "Reorder: drag a canvas section onto another section, or use its up and down arrow buttons.",
+          "Remove: use the × button in the selected section's upper-right corner.",
+          "Edit: click the body of a canvas section. An orange outline marks it as selected and its fields appear on the right.",
+          "Reset to a recipe: switch to another composition, then choose the recipe you want. This deliberately discards your custom block order.",
+        ],
+      },
+      {
+        heading: "Change the design and words",
+        paragraphs: [
+          "Use Site name and Description at the top of the right panel for the product identity. Palette, Typeface, Radius, and Density affect the whole generated site and update the canvas immediately.",
+          "After selecting a section on the canvas, edit its Eyebrow, Heading, Description, and Items fields. Enter one item per line. The canvas updates while you type.",
+        ],
+        bullets: [
+          "Keep headings short enough to scan on a phone.",
+          "Use the description to say what the product does, for whom, and why it is useful.",
+          "Treat the canvas as a structural preview. The exported Next.js application is the final result to review in a browser.",
+        ],
+      },
+      {
+        heading: "Confirm the draft is saved",
+        paragraphs: [
+          "Every change schedules an automatic save after a short pause. Watch the top-right status move from Unsaved to Saving… and then Saved locally. You can also choose Save draft to write it immediately.",
+          "Drafts live in .stackiln-studio inside the framework checkout. Stop Studio with Ctrl+C and start it later with the same destination to reopen that draft. A draft is not the generated website; export is still required.",
+        ],
+      },
+      {
+        heading: "Export the product",
+        paragraphs: [
+          "Check that the destination shown in the top bar is the new folder you intended to create, wait for Saved locally, and choose Export site. Keep the terminal open and do not refresh the browser while Exporting… is shown.",
+          "A successful export displays Exported followed by the number of selected blocks and shows the destination in a confirmation dialog. Stackiln validates the configuration, plans every file, writes through a temporary sibling stage, and only then creates the destination.",
+        ],
+        bullets: [
+          "If export reports that the destination exists, choose a different new destination and restart Studio. It does not overwrite existing products.",
+          "If validation fails, read the message in the top bar or alert, correct the named field, wait for the draft to save, and export again.",
+          "Only selected blocks are copied into the product. Their content and theme become ordinary product-owned source.",
+        ],
+      },
+      {
+        heading: "Run the exported site",
+        paragraphs: [
+          "Stop Studio with Ctrl+C. Enter the generated product, create its local environment file, install dependencies, start PostgreSQL, apply the checked-in migration, and start Next.js. Use the command set for your shell.",
+        ],
+        code: "# PowerShell\ncd ../my-product\nCopy-Item .env.example .env.local\npnpm.cmd install --frozen-lockfile\ndocker compose up -d --wait db\npnpm.cmd db:migrate\npnpm.cmd dev\n\n# macOS or Linux\ncd ../my-product\ncp .env.example .env.local\npnpm install --frozen-lockfile\ndocker compose up -d --wait db\npnpm db:migrate\npnpm dev",
+        bullets: [
+          "Wait until Next.js reports that it is ready.",
+          "Open http://localhost:3000 and review every section at desktop and phone widths.",
+          "Return to the terminal and press Ctrl+C to stop Next.js.",
+          "Run docker compose down when you want to stop the local database.",
+        ],
+      },
+      {
+        heading: "Check and commit the result",
+        paragraphs: [
+          "Run the product verification before treating the export as complete. Then initialise Git if needed and make the generated product's first commit. Review .env.local before committing; it is ignored and must stay out of version control.",
+        ],
+        code: "pnpm verify\ngit init\ngit add .\ngit commit -m \"feat: create product with Stackiln\"",
+        bullets: [
+          "apps/web/src/blocks contains the selected page-section source.",
+          "stackiln.config.json contains the resolved product, brand, recipe, and content configuration.",
+          "docs/blocks.md lists the exported home-page composition.",
+          ".stackiln/state.json records ownership and checksums for managed files.",
+        ],
+      },
+      {
+        heading: "Fix common problems",
+        bullets: [
+          "pnpm is not recognised — install pnpm 9, reopen the terminal, and rerun pnpm --version.",
+          "PowerShell cannot run pnpm.ps1 — replace pnpm with pnpm.cmd in that command.",
+          "The browser cannot reach Studio — confirm the Studio terminal is still running and use the exact URL it printed.",
+          "Port 4173 is already in use — restart Studio with --port 5000 or another unused port.",
+          "The right editing panel is gone — widen the browser beyond 1000 pixels or zoom out.",
+          "A dragged block will not appear — drop the card onto the centre canvas, and check whether that block is already present.",
+          "Export says the destination exists — Studio only creates new products; restart it with another destination name.",
+          "Docker cannot connect — start Docker Desktop and wait until its engine reports that it is running.",
+          "Port 3000 is busy — stop the other development server or follow the alternate URL printed by Next.js.",
+        ],
+      },
+      {
+        heading: "Know the current limits",
+        paragraphs: [
+          "Studio currently creates new marketing products. It does not reopen an exported product, deploy the site, or merge later visual changes into customised source. Module selection, including accounts, remains a CLI workflow.",
+          "Automatic upgrade and conflict-proposal workflows are not implemented yet. After export, work in the generated repository and use its tests, state file, and normal Git history to protect your changes.",
         ],
       },
     ],
