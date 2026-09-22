@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { CopyCommand } from "@/components/copy-command";
+import { Mark } from "@/components/logo";
 import { SiteHeader } from "@/components/site-header";
 
 const capabilities = [
@@ -26,7 +26,6 @@ export default function Home() {
       <SiteHeader />
 
       <section className="hero">
-        <div className="hero-glow" />
         <div className="hero-copy">
           <span className="eyebrow">
             <i /> Open source · MIT · Alpha
@@ -51,16 +50,11 @@ export default function Home() {
           <CopyCommand />
         </div>
 
-        <div className="hero-mark" aria-hidden="true">
-          <div className="orbit one" />
-          <div className="orbit two" />
-          <Image
-            src="/stackiln-mark.png"
-            alt=""
-            width={520}
-            height={520}
-            priority
-          />
+        <div className="hero-panel" aria-hidden="true">
+          <Mark size={132} />
+          <div><span>01</span><strong>Plan</strong></div>
+          <div><span>02</span><strong>Compose</strong></div>
+          <div><span>03</span><strong>Own</strong></div>
         </div>
       </section>
 
@@ -150,7 +144,7 @@ Dependencies: resend`}</pre>
       </section>
 
       <section className="cta">
-        <Image src="/stackiln-mark.png" alt="" width={76} height={76} />
+        <Mark size={64} />
         <h2>Start with a product you can keep.</h2>
         <p>Open source, permissively licensed, and built to leave you in control.</p>
         <div className="hero-actions">
