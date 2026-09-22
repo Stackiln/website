@@ -18,7 +18,7 @@ export async function generateMetadata({
   return {
     title: doc.title,
     description: doc.description,
-    alternates: { canonical: `https://docs.stackiln.com/${doc.slug}` },
+    alternates: { canonical: `https://stackiln.com/docs/${doc.slug}` },
   };
 }
 

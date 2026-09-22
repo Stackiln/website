@@ -7,8 +7,8 @@ export const metadata: Metadata = {
     template: "%s · Stackiln docs",
   },
   description: "Learn how to create, understand, extend, and deploy Stackiln products.",
-  metadataBase: new URL("https://docs.stackiln.com"),
-  alternates: { canonical: "https://docs.stackiln.com" },
+  metadataBase: new URL("https://stackiln.com"),
+  alternates: { canonical: "https://stackiln.com/docs" },
 };
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {

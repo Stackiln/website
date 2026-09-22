@@ -3,8 +3,8 @@
 The public website and documentation for [Stackiln](https://github.com/Stackiln/stackiln).
 
 - `stackiln.com` serves the product site.
-- `docs.stackiln.com` serves the documentation with clean paths such as `/quick-start`.
-- One Next.js deployment serves both hosts. Host-aware routing lives in `proxy.ts`.
+- `stackiln.com/docs` serves the documentation.
+- GitHub Pages publishes the statically exported Next.js application.
 
 ## Local development
 
@@ -15,7 +15,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-The product site is available at `http://localhost:3000`; the documentation routes are available under `http://localhost:3000/docs`.
+Run `pnpm build && pnpm start`. The product site is available at `http://localhost:3000`; the documentation is under `http://localhost:3000/docs`.
 
 ## Verify
 
@@ -27,13 +27,7 @@ This runs TypeScript, ESLint, and a production Next.js build.
 
 ## Deploy
 
-Deploy the repository as a single Next.js project, then attach these domains:
-
-- `stackiln.com`
-- `www.stackiln.com` (redirect to `stackiln.com` at the hosting layer)
-- `docs.stackiln.com`
-
-Configure the DNS records shown by the hosting provider. Requests for `docs.stackiln.com` are rewritten to the internal `/docs` tree, while duplicated `/docs/...` URLs on that host redirect to their clean equivalent.
+Pushes to `main` are built and deployed with `.github/workflows/pages.yml`. GitHub Pages is configured with `stackiln.com` as its custom domain. The domain's apex DNS records must point to GitHub Pages before HTTPS can be enforced.
 
 ## Editing documentation
 

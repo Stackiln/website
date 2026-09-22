@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CopyCommand } from "@/components/copy-command";
 import { Mark } from "@/components/logo";
 import { SiteHeader } from "@/components/site-header";
@@ -40,9 +41,9 @@ export default function Home() {
             production-oriented Next.js product—then gets out of the way.
           </p>
           <div className="hero-actions">
-            <a className="button primary" href="https://docs.stackiln.com/quick-start">
+            <Link className="button primary" href="/docs/quick-start">
               Read the quick start
-            </a>
+            </Link>
             <a className="button secondary" href="https://github.com/Stackiln/stackiln">
               View on GitHub <span>↗</span>
             </a>
@@ -109,7 +110,7 @@ Dependencies: resend`}</pre>
             exact output. Apply uses a sibling staging directory; managed-file
             hashes protect later customisation.
           </p>
-          <a href="https://docs.stackiln.com/concepts">Understand the model →</a>
+          <Link href="/docs/concepts">Understand the model →</Link>
         </div>
       </section>
 
@@ -142,9 +143,9 @@ Dependencies: resend`}</pre>
         <h2>Start with a product you can keep.</h2>
         <p>Open source, permissively licensed, and built to leave you in control.</p>
         <div className="hero-actions">
-          <a className="button primary" href="https://docs.stackiln.com/quick-start">
+          <Link className="button primary" href="/docs/quick-start">
             Get started
-          </a>
+          </Link>
           <a className="button secondary" href="https://github.com/Stackiln/stackiln">
             Star on GitHub
           </a>
@@ -157,7 +158,7 @@ Dependencies: resend`}</pre>
           <span>Shape the stack. Own the outcome.</span>
         </div>
         <nav aria-label="Footer">
-          <a href="https://docs.stackiln.com">Docs</a>
+          <Link href="/docs">Docs</Link>
           <a href="https://github.com/Stackiln/stackiln">GitHub</a>
           <a href="https://github.com/Stackiln/stackiln/blob/main/LICENSE">MIT License</a>
           <a href="https://github.com/Stackiln/stackiln/blob/main/SECURITY.md">Security</a>
