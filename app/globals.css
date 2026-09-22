@@ -53,7 +53,7 @@ input {
 .header-inner {
   display: flex;
   width: min(calc(100% - 40px), var(--content));
-  min-height: 72px;
+  min-height: 78px;
   margin: 0 auto;
   align-items: center;
   justify-content: space-between;
@@ -63,7 +63,7 @@ input {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 1.08rem;
+  font-size: 1.3rem;
   font-weight: 800;
   letter-spacing: -0.03em;
 }
@@ -78,7 +78,7 @@ input {
   align-items: center;
   gap: 28px;
   color: #d5d1c8;
-  font-size: 0.86rem;
+  font-size: 1rem;
   font-weight: 700;
 }
 
@@ -88,14 +88,12 @@ footer a:hover {
 }
 
 .hero {
-  display: grid;
+  display: flex;
   min-height: 720px;
   padding: 145px max(20px, calc((100vw - var(--content)) / 2)) 80px;
   color: var(--white);
   background: var(--ink);
-  grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
   align-items: center;
-  gap: 80px;
 }
 
 .hero-copy {
@@ -219,37 +217,6 @@ footer a:hover {
   cursor: pointer;
   font-size: 0.75rem;
   font-weight: 800;
-}
-
-.hero-panel {
-  align-self: stretch;
-  display: flex;
-  padding: 48px 38px;
-  color: var(--ink);
-  background: var(--orange);
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.hero-panel > .mark {
-  margin-bottom: auto;
-}
-
-.hero-panel > div {
-  display: grid;
-  padding: 16px 0;
-  border-top: 2px solid var(--ink);
-  grid-template-columns: 48px 1fr;
-  align-items: baseline;
-}
-
-.hero-panel span {
-  font: 0.72rem Consolas, monospace;
-}
-
-.hero-panel strong {
-  font-size: 1.35rem;
-  letter-spacing: -0.035em;
 }
 
 .proof-strip {
@@ -746,15 +713,6 @@ footer nav {
 }
 
 @media (max-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr;
-    gap: 50px;
-  }
-
-  .hero-panel {
-    min-height: 400px;
-  }
-
   .capability-grid {
     grid-template-columns: 1fr;
   }
@@ -826,11 +784,6 @@ footer nav {
 
   .hero h1 {
     font-size: clamp(3.35rem, 17vw, 5rem);
-  }
-
-  .hero-panel {
-    min-height: 340px;
-    padding: 32px 26px;
   }
 
   .proof-strip {

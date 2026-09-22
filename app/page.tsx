@@ -50,12 +50,6 @@ export default function Home() {
           <CopyCommand />
         </div>
 
-        <div className="hero-panel" aria-hidden="true">
-          <Mark size={132} />
-          <div><span>01</span><strong>Plan</strong></div>
-          <div><span>02</span><strong>Compose</strong></div>
-          <div><span>03</span><strong>Own</strong></div>
-        </div>
       </section>
 
       <section className="proof-strip" aria-label="Current verification coverage">
