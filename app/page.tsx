@@ -51,6 +51,41 @@ export default function Home() {
           <CopyCommand />
         </div>
 
+        <div className="hero-system" aria-hidden="true">
+          <div className="hero-system-head">
+            <span>Product composition</span>
+            <strong>Ready</strong>
+          </div>
+          <div className="hero-system-body">
+            <div className="system-layer system-layer-base">
+              <span>01</span>
+              <div>
+                <strong>Verified base</strong>
+                <small>Next.js · TypeScript · PostgreSQL</small>
+              </div>
+            </div>
+            <div className="system-connector" />
+            <div className="system-modules">
+              <div className="system-layer">
+                <span>02</span>
+                <strong>Accounts</strong>
+              </div>
+              <div className="system-layer">
+                <span>03</span>
+                <strong>Email</strong>
+              </div>
+              <div className="system-layer">
+                <span>04</span>
+                <strong>Content</strong>
+              </div>
+            </div>
+            <div className="system-output">
+              <span>Output</span>
+              <strong>Your product</strong>
+              <small>59 owned files</small>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="proof-strip" aria-label="Current verification coverage">
